@@ -1,5 +1,3 @@
-import { catchAsycError } from "./catchAsyncError.js";
-
 export function catchAsycError(fn) {
   return (req, res, next) => {
     fn(req, res, next).catch((error) => {
