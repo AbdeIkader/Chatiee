@@ -32,7 +32,7 @@ const signUp = catchAsyncError(async (req, res) => {
   }
 });
 
-const signIn = catchAsyncError(async (req, res, next) => {
+const signIn = catchAsyncError(async (req, res) => {
   const { userName, password } = req.body;
 
   // Check if email and password are provided
@@ -55,12 +55,19 @@ const signIn = catchAsyncError(async (req, res, next) => {
   }
 
   // Generate a token for the trainee
-  generateTokenAndSetCookie(user._id,res)
+  generateTokenAndSetCookie(user._id, res);
 
   // Send the token to the trainee
   res.status(200).json({
     success: true,
     message: "Logged in successfully!",
-    });
+  });
 });
-export { signUp,signIn };
+
+const logOut = catchAsyncError(async (req, res) => {
+  res.cookie("authToken", "", {
+    maxAge: 0,
+  });
+  res.status(200).json({ success: true, message: "Logged out successfully!" });
+});
+export { signUp, signIn, logOut };
