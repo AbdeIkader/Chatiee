@@ -1,9 +1,10 @@
 import { AppError } from "./../../utils/AppError.js";
 import { userModel } from "./../../DB/models/user.model.js";
-import { catchAsycError } from "./../../utils/catchAsyncError.js";
+import { catchAsyncError } from "./../../utils/catchAsyncError.js";
 import { generateTokenAndSetCookie } from "../../middleware/authToken.js";
+import bcrypt from "bcryptjs";
 
-const signUp = catchAsycError(async (req, res) => {
+const signUp = catchAsyncError(async (req, res) => {
   const { fullName, userName, password, confirmPassword, gender } = req.body;
 
   if (password !== confirmPassword) {
@@ -31,4 +32,35 @@ const signUp = catchAsycError(async (req, res) => {
   }
 });
 
-export { signUp };
+const signIn = catchAsyncError(async (req, res, next) => {
+  const { userName, password } = req.body;
+
+  // Check if email and password are provided
+  if (!userName || !password) {
+    return next(new AppError("Please provide email and password!", 400));
+  }
+
+  // Try to find the user by username
+  const user = await userModel.findOne({ userName });
+
+  if (!user) {
+    return next(new AppError("Incorrect email or password", 401));
+  }
+
+  // Check if the password is correct
+  const isMatch = await bcrypt.compare(password, user.password);
+
+  if (!isMatch) {
+    return next(new AppError("Incorrect email or password", 401));
+  }
+
+  // Generate a token for the trainee
+  generateTokenAndSetCookie(user._id,res)
+
+  // Send the token to the trainee
+  res.status(200).json({
+    success: true,
+    message: "Logged in successfully!",
+    });
+});
+export { signUp,signIn };
