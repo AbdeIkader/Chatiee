@@ -17,7 +17,7 @@ app.all("*", (req, res, next) => {
 app.use(globalErrorHandling);
 
 dbConnection();
-
+//Listen to the server
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);
 });
