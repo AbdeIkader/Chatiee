@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { GrChatOption } from "react-icons/gr";
 
 export default function Login() {
   return <>
@@ -7,9 +8,8 @@ export default function Login() {
   <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
       <div class="w-full md:w-[800px] bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 class="text-xl font-bold leading-tight tracking-tight text-center text-gray-900 md:text-2xl ">
-                  Login <span className='text-blue-500'>Chatiee </span>
-                  <img src="chatiee.svg" width={25} alt="" srcset="" className='inline ms-1 mb-1' />
+              <h1 class="text-xl font-bold leading-tight tracking-tight text-center text-gray-900 md:text-2xl flex items-center justify-center gap-2">
+                  Login <span className='text-blue-500 flex items-center justify-center gap-2'> Chatiee  <GrChatOption/> </span>
               </h1>
               <form class="space-y-4 md:space-y-6" action="#">
                   <div>
