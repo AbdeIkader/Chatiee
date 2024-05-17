@@ -1,5 +1,6 @@
 import React from 'react'
 import GenderCheckBox from './GenderCheckBox'
+import { Link } from 'react-router-dom'
 
 export default function Signup() {
   return <>
@@ -33,7 +34,7 @@ export default function Signup() {
                   <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign Up</button>
                  
                   <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                      Already have an account? <a href="#" class="font-medium text-blue-600 hover:underline dark:text-primary-500">Login</a>
+                      Already have an account? <Link to="/login" class="font-medium text-blue-600 hover:underline dark:text-primary-500">Login</Link>
                   </p>
               </form>
           </div>
@@ -41,3 +42,5 @@ export default function Signup() {
   </div>
   </>
 }
+
+
