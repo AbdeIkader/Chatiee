@@ -1,10 +1,10 @@
 import { AppError } from "./../../utils/AppError.js";
-import { userModel } from "./../../DB/models/user.model.js";
+import userModel from "./../../DB/models/user.model.js";
 import { catchAsyncError } from "./../../utils/catchAsyncError.js";
 import { generateTokenAndSetCookie } from "../../middleware/authToken.js";
 import bcrypt from "bcryptjs";
 
-const signUp = catchAsyncError(async (req, res) => {
+const signUp = catchAsyncError(async (req, res, next) => {
   const { fullName, userName, password, confirmPassword, gender } = req.body;
 
   if (password !== confirmPassword) {
