@@ -2,13 +2,25 @@ import React from 'react';
 import Messages from './Messages';
 import MessageInput from './MessageInput';
 import NoChatSelected from './NoChatSelected';
-
+import { useEffect } from "react";
+import useConversation from "../../zustand/useConversation";
+import { useAuthContext } from "../../context/AuthContext";
 
 export default function MessagesContainer() {
-    const noChatSelected = true;
-  return <>
+    
+  // const noChatSelected = true;
   
-    {noChatSelected ? <NoChatSelected/> : (
+  const { selectedConversation, setSelectedConversation } = useConversation();
+
+	useEffect(() => {
+		// cleanup function (unmounts)
+		return () => setSelectedConversation(null);
+	}, [setSelectedConversation]);
+
+ 
+ return <>
+  
+    {!selectedConversation ? <NoChatSelected/> : (
          <div className='flex flex-col h-full w-full'>
 
          {/* Header */}
@@ -18,7 +30,7 @@ export default function MessagesContainer() {
                <img src="https://avatars.githubusercontent.com/u/119017520?v=4" />
              </div>
            </div>
-           <div className='ms-3 text-sm font-semibold'>Abdelrahman Abdelkader</div>
+           <div className='ms-3 text-sm font-semibold'>{selectedConversation.fullName}</div>
          </div>
    
          <Messages />

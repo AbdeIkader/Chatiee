@@ -1,5 +1,6 @@
 import React from "react";
 import { GrChatOption } from "react-icons/gr";
+const { authUser } = useAuthContext();
 
 export default function NoChatSelected() {
     return (
@@ -10,7 +11,7 @@ export default function NoChatSelected() {
                     <GrChatOption />
                 </div>
 
-                <p className="text-md">Welcome 👋 <span className="font-bold">Abdelrahman Abdelkader</span></p>
+                <p className="text-md">Welcome 👋 <span className="font-bold">{authUser.fullName}</span></p>
                 <p className="text-base">Select a chat to start messaging</p>
 
             </div>
