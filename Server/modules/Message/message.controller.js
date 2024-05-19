@@ -12,7 +12,7 @@ const sendMessage = catchAsyncError(async (req, res) => {
   });
 
   if (!conversation) {
-    await conversationModel.create({
+    conversation = new conversationModel({
       participants: [senderId, receiverId],
     });
   }
@@ -28,24 +28,25 @@ const sendMessage = catchAsyncError(async (req, res) => {
   }
 
   await Promise.all([conversation.save(), newMessage.save()]);
-  res.status(201).json({ sucess: true, newMessage });
+  res.status(201).json({ success: true, newMessage });
 });
 
 const getMessage = catchAsyncError(async (req, res) => {
   const senderId = req.user._id;
   const { id: userToChatId } = req.params;
-  console.log(userToChatId);
-  console.log(senderId);
+
   const conversation = await conversationModel
     .findOne({
       participants: { $all: [senderId, userToChatId] },
     })
-    .populate("messages");
-  console.log(conversation);
+    .populate('messages');
+
   if (!conversation) {
     return res.status(404).json([]);
   }
-  const messages = conversation.messages;
-  res.status(200).json(messages);
+
+  res.status(200).json(conversation.messages);
 });
+
 export { sendMessage, getMessage };
+//Added Enhancement
