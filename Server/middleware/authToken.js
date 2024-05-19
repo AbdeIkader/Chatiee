@@ -8,7 +8,7 @@ const generateTokenAndSetCookie = async (userId, res) => {
     expiresIn: "15d",
   });
 
-  res.cookie("authToken", token, {
+  res.cookie("jwt", token, {
     httpOnly: true,
     secure: process.env.MODE !== "dev",
     maxAge: 15 * 24 * 60 * 60 * 1000,
@@ -17,7 +17,7 @@ const generateTokenAndSetCookie = async (userId, res) => {
 };
 
 const protectedRoute = catchAsyncError(async (req, res, next) => {
-  const token = req.cookies.authToken;
+  const token = req.cookies.jwt;
   console.log(token);
 
   if (!token) {
