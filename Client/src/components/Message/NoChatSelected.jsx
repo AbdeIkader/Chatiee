@@ -1,8 +1,13 @@
 import React from "react";
 import { GrChatOption } from "react-icons/gr";
-const { authUser } = useAuthContext();
+import { useAuthContext } from "../../context/AuthContext";
+
 
 export default function NoChatSelected() {
+
+    const { authUser } = useAuthContext();
+
+    
     return (
         <div className='flex items-center justify-center w-full h-full'>
             <div className='px-4 text-center sm:text-lg md:text-xl font-semibold flex flex-col items-center justify-center gap-6'>

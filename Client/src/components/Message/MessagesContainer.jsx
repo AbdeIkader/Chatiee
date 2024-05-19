@@ -4,7 +4,6 @@ import MessageInput from './MessageInput';
 import NoChatSelected from './NoChatSelected';
 import { useEffect } from "react";
 import useConversation from "../../zustand/useConversation";
-import { useAuthContext } from "../../context/AuthContext";
 
 export default function MessagesContainer() {
     
