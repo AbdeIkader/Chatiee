@@ -13,7 +13,7 @@ export default function useLogin() {
 		if (!success) return;
 		setLoading(true);
 		try {
-			const res = await fetch("https://chatiee.onrender.com/api/v1/user/signin", {
+			const res = await fetch("https://chatiee.onrender.com/api/v1/auth/signin", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({ userName, password }),

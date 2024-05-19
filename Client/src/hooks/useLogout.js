@@ -11,7 +11,7 @@ export default function useLogout() {
 	const logout = async () => {
 		setLoading(true);
 		try {
-			const res = await fetch("https://chatiee.onrender.com/api/v1/user/logout", {
+			const res = await fetch("https://chatiee.onrender.com/api/v1/auth/logout", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 			});
