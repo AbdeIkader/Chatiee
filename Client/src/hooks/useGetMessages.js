@@ -10,7 +10,7 @@ const useGetMessages = () => {
         const getMessages = async () => {
             setLoading(true);
             try {
-                const res = await fetch(`https://chatiee.onrender.com/api/v1/messages/${selectedConversation._id}`, {
+                const res = await fetch(`http://localhost:5000/api/v1/messages/${selectedConversation._id}`, {
                     method: "GET",
                     credentials: 'include', // Include credentials to send cookies
                 });

@@ -9,7 +9,7 @@ export default function useGetConversations() {
         const getConversations = async () => {
             setLoading(true);
             try {
-                const res = await fetch("https://chatiee.onrender.com/api/v1/users", {
+                const res = await fetch("http://localhost:5000/api/v1/users", {
                     method: "GET",
                     credentials: 'include', // Include credentials to send cookies
                 });
