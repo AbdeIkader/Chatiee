@@ -8,12 +8,16 @@ const generateTokenAndSetCookie = async (userId, res) => {
     expiresIn: "15d",
   });
 
+  console.log("Generated token:", token);
+
   res.cookie("jwt", token, {
     httpOnly: true,
-    secure: false,
-    maxAge: 15 * 24 * 60 * 60 * 1000,
-    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production", // Only secure if in production
+    maxAge: 15 * 24 * 60 * 60 * 1000, // 15 days
+    sameSite: "lax", // Use 'lax' for local development
   });
+
+  console.log("Cookie set with token:", token);
 };
 
 const protectedRoute = catchAsyncError(async (req, res, next) => {
