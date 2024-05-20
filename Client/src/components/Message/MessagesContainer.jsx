@@ -1,9 +1,8 @@
-import React from 'react';
-import Messages from './Messages';
-import MessageInput from './MessageInput';
-import NoChatSelected from './NoChatSelected';
 import { useEffect } from "react";
 import useConversation from "../../zustand/useConversation";
+import MessageInput from './MessageInput';
+import Messages from './Messages';
+import NoChatSelected from './NoChatSelected';
 
 export default function MessagesContainer() {
     
