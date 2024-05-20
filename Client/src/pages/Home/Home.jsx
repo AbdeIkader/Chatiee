@@ -1,3 +1,8 @@
+/*
+Co-Authored by: Shehab Eldin Said
+Co-Authored by: Abdelrahman Mohamed Abdelkader
+*/
+
 import React from 'react';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import MessagesContainer from '../../components/Message/MessagesContainer';
