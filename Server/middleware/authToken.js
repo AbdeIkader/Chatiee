@@ -14,7 +14,7 @@ const generateTokenAndSetCookie = async (userId, res) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production", // Only secure if in production
     maxAge: 15 * 24 * 60 * 60 * 1000, // 15 days
-    sameSite: "lax", // Use 'lax' for local development
+    sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax", // Use 'lax' for local development
   });
 
   console.log("Cookie set with token:", token);

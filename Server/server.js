@@ -15,9 +15,21 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Enable CORS for all routes
+// Dynamically set CORS origin based on environment
+const allowedOrigins = [
+  process.env.LOCAL_FRONTEND_URL,
+  process.env.PRODUCTION_FRONTEND_URL,
+];
+
 app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true,
+  origin: function (origin, callback) {
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, // Enable credentials (cookies) in CORS
 }));
 
 app.use(express.json());
