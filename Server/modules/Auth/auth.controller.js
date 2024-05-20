@@ -61,11 +61,12 @@ const signIn = catchAsyncError(async (req, res) => {
   res.status(200).json({
     success: true,
     message: "Logged in successfully!",
+    data:user
   });
 });
 
 const logOut = catchAsyncError(async (req, res) => {
-  res.cookie("authToken", "", {
+  res.cookie("jwt", "", {
     maxAge: 0,
   });
   res.status(200).json({ success: true, message: "Logged out successfully!" });

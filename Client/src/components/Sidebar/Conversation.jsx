@@ -17,11 +17,11 @@ export default function Conversation({ conversation, lastIdx }) {
 			`}
 				onClick={() => setSelectedConversation(conversation)}
 			>
-				<div className={`avatar ${isOnline ? "online" : ""}`}>
+				{/* <div className={`avatar ${isOnline ? "online" : ""}`}>
 					<div className='w-12 rounded-full'>
 						<img src={conversation.profilePic} alt='user avatar' />
 					</div>
-				</div>
+				</div> */}
 
 				<div className='flex flex-col flex-1'>
 					<div className='flex gap-3 justify-between'>

@@ -16,7 +16,7 @@ export default function NoChatSelected() {
                     <GrChatOption />
                 </div>
 
-                <p className="text-md">Welcome 👋 <span className="font-bold">{authUser.fullName}</span></p>
+                <p className="text-md">Welcome 👋 <span className="font-bold">{authUser.data.fullName}</span></p>
                 <p className="text-base">Select a chat to start messaging</p>
 
             </div>
