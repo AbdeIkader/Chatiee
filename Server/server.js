@@ -14,21 +14,10 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
-// Enable CORS for all routes
-// Dynamically set CORS origin based on environment
-const allowedOrigins = [
-  process.env.LOCAL_FRONTEND_URL,
-  process.env.PRODUCTION_FRONTEND_URL,
-];
 
+// Enable CORS for all routes
 app.use(cors({
-  origin: function (origin, callback) {
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: 'http://localhost:5173',
   credentials: true, // Enable credentials (cookies) in CORS
 }));
 
@@ -47,5 +36,5 @@ dbConnection();
 app.use(globalErrorHandling);
 
 app.listen(PORT, () => {
-  console.log(`Server is running on PORT ${PORT}`);
+  console.log(`Server is running on PORT ${PORT}`);
 });
