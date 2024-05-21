@@ -14,7 +14,13 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
+
 // Enable CORS for all routes
+// Dynamically set CORS origin based on environment
+const allowedOrigins = [
+  process.env.LOCAL_FRONTEND_URL,
+  process.env.PRODUCTION_FRONTEND_URL,
+];
 
 app.use(cors({
   origin: 'http://localhost:5173',
@@ -36,5 +42,5 @@ dbConnection();
 app.use(globalErrorHandling);
 
 app.listen(PORT, () => {
-  console.log(`Server is running on PORT ${PORT}`);
+  console.log(`Server is running on PORT ${PORT}`);
 });

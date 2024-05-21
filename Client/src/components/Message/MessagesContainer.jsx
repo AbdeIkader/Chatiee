@@ -6,7 +6,7 @@ import NoChatSelected from './NoChatSelected';
 
 export default function MessagesContainer() {
     
-  // const noChatSelected = true;
+
   
   const { selectedConversation, setSelectedConversation } = useConversation();
 
