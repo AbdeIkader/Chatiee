@@ -8,7 +8,7 @@ import Message from "./Message";
 export default function Messages() {
   
   const { messages, loading } = useGetMessages();
-	useListenMessages();
+	// useListenMessages();
 	const lastMessageRef = useRef();
 
 	useEffect(() => {
