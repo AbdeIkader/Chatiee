@@ -1,17 +1,12 @@
-/*
-Co-Authored by: Shehab Eldin Said
-Co-Authored by: Abdelrahman Mohamed Abdelkader
-*/
+import MessageContainer from "../../components/messages/MessageContainer";
+import Sidebar from "../../components/sidebar/Sidebar";
 
-import React from 'react';
-import Sidebar from '../../components/Sidebar/Sidebar';
-import MessagesContainer from '../../components/Message/MessagesContainer';
-
-export default function Home() {
-  return (
-    <div className='flex w-full h-full overflow-hidden bg-gray-100'>
-      <Sidebar />
-      <MessagesContainer />
-    </div>
-  );
-}
+const Home = () => {
+	return (
+		<div className='flex sm:h-[450px] md:h-[550px] rounded-lg overflow-hidden bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0'>
+			<Sidebar />
+			<MessageContainer />
+		</div>
+	);
+};
+export default Home;
