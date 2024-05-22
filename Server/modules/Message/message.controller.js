@@ -1,6 +1,7 @@
 import { catchAsyncError } from "./../../utils/catchAsyncError.js";
 import conversationModel from "../../DB/models/conversation.model.js";
 import messageModel from "./../../DB/models/message.model.js";
+import { getReceiverSocketId, io } from "../../../Socket/socket.js";
 
 const sendMessage = catchAsyncError(async (req, res) => {
   const senderId = req.user._id;
@@ -28,25 +29,42 @@ const sendMessage = catchAsyncError(async (req, res) => {
   }
 
   await Promise.all([conversation.save(), newMessage.save()]);
-  res.status(201).json({ success: true, newMessage });
+
+  // Populate sender details
+  const populatedMessage = await messageModel.findById(newMessage._id).populate('senderId', 'fullName userName profilePic');
+
+  const receiverSocketId = getReceiverSocketId(receiverId)
+  if(receiverSocketId){
+    io.to(receiverSocketId).emit("newMessage", populatedMessage)
+  }
+  res.status(201).json(populatedMessage);
 });
 
 const getMessage = catchAsyncError(async (req, res) => {
   const senderId = req.user._id;
   const { id: userToChatId } = req.params;
 
-  const conversation = await conversationModel
-    .findOne({
-      participants: { $all: [senderId, userToChatId] },
-    })
-    .populate('messages');
+  // Find conversation with participants including senderId and userToChatId
+  const conversation = await conversationModel.findOne({
+    participants: { $all: [senderId, userToChatId] }
+  }).populate({
+    path: 'messages',
+    populate: {
+      path: 'senderId',
+      select: 'fullName userName profilePic'
+    }
+  });
 
   if (!conversation) {
     return res.status(404).json([]);
   }
 
-  res.status(200).json(conversation.messages);
+  const messages = conversation.messages;
+
+  res.status(200).json(messages);
 });
+
+
 
 export { sendMessage, getMessage };
 //Added Enhancement

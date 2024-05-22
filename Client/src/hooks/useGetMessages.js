@@ -10,6 +10,7 @@ const useGetMessages = () => {
         const getMessages = async () => {
             setLoading(true);
             try {
+                console.log(selectedConversation._id);
                 const res = await fetch(`http://localhost:5000/api/v1/messages/${selectedConversation._id}`, {
                     method: "GET",
                     credentials: 'include', // Include credentials to send cookies

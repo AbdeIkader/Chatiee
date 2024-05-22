@@ -11,16 +11,15 @@ export default function Message({ message }) {
   const profilePicture = fromMe ? authUser.data.profilePicture : selectedConversation?.profilePicture;
   const bubbleBgColor = fromMe ? "bg-blue-500" : "";
   const shakeClass = message.shouldShake ? "shake" : "";
-
-  // Log profilePicture to ensure it has the correct value
-  console.log(profilePicture);
+  console.log(message);
+  console.log(message.message);
 
   return (
     <div className={`chat ${chatClassName}`}>
       <div className='chat-image avatar'>
         <div className='w-10 rounded-full'>
           {/* Interpolate profilePicture correctly */}
-          <img src={profilePicture} alt="Profile" />
+          <img src="https://avatars.githubusercontent.com/u/119017520?v=4" alt="Profile" />
         </div>
       </div>
       <div className={`chat-bubble text-white ${bubbleBgColor} ${shakeClass} pb-2`}>

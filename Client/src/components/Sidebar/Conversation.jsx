@@ -1,13 +1,14 @@
 import React from 'react';
 import useConversation from "../../zustand/useConversation";
+import { useSocketContext } from '../../context/SocketContext';
 
 export default function Conversation({ conversation, lastIdx }) {
   
   const { selectedConversation, setSelectedConversation } = useConversation();
 
 	const isSelected = selectedConversation?._id === conversation._id;
-	// const { onlineUsers } = useSocketContext();
-	// const isOnline = onlineUsers.includes(conversation._id);
+	const { onlineUsers } = useSocketContext();
+	const isOnline = onlineUsers.includes(conversation._id);
 
 
   return <>
@@ -17,11 +18,11 @@ export default function Conversation({ conversation, lastIdx }) {
 			`}
 				onClick={() => setSelectedConversation(conversation)}
 			>
-				{/* <div className={`avatar ${isOnline ? "online" : ""}`}>
+				<div className={`avatar ${isOnline ? "online" : ""}`}>
 					<div className='w-12 rounded-full'>
-						<img src={conversation.profilePic} alt='user avatar' />
+						<img src="https://avatars.githubusercontent.com/u/119017520?v=4" alt='user avatar' />
 					</div>
-				</div> */}
+				</div>
 
 				<div className='flex flex-col flex-1'>
 					<div className='flex gap-3 justify-between'>
