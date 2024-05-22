@@ -16,23 +16,27 @@ const signUp = catchAsyncError(async (req, res, next) => {
   if (isUserExist) {
     return next(new AppError("User already exists!", 400));
   }
-  const boyProfilePicture = `https://asset.cloudinary.com/dbpvx37nc/fa534bec3c11074c407903bcaabffad5`;
-  const girlProfilePicture = `https://asset.cloudinary.com/dbpvx37nc/fa534bec3c11074c407903bcaabffad5`;
+  const boyProfilePicture = `https://avatar.iran.liara.run/public/boy?username=${userName}`;
+  const girlProfilePicture = `https://avatar.iran.liara.run/public/girl?username=[${userName}]`;
   const newUser = new userModel({
     fullName,
     userName,
     password,
     gender,
-    profilePicture: gender === "Male" ? boyProfilePicture : girlProfilePicture,
+    profilePic: gender === "Male" ? boyProfilePicture : girlProfilePicture,
   });
   if (newUser) {
     generateTokenAndSetCookie(newUser._id, res);
     await newUser.save();
-    res.status(201).json({ success: true, message: "User added successfully" });
+    res.status(201).json({
+      _id: newUser._id,
+      fullName: newUser.fullName,
+      userName: newUser.userName,
+      profilePic: newUser.profilePic, });
   }
 });
 
-const signIn = catchAsyncError(async (req, res) => {
+const signIn = catchAsyncError(async (req, res,next) => {
   const { userName, password } = req.body;
 
   // Check if email and password are provided
@@ -59,13 +63,15 @@ const signIn = catchAsyncError(async (req, res) => {
 
   // Send the token to the trainee
   res.status(200).json({
-    success: true,
-    message: "Logged in successfully!",
+    _id: user._id,
+    fullName: user.fullName,
+    userName: user.userName,
+    profilePic: user.profilePic,
   });
 });
 
 const logOut = catchAsyncError(async (req, res) => {
-  res.cookie("authToken", "", {
+  res.cookie("jwt", "", {
     maxAge: 0,
   });
   res.status(200).json({ success: true, message: "Logged out successfully!" });

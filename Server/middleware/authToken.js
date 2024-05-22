@@ -8,17 +8,21 @@ const generateTokenAndSetCookie = async (userId, res) => {
     expiresIn: "15d",
   });
 
+  // console.log("Generated token:", token);
+
   res.cookie("jwt", token, {
     httpOnly: true,
-    secure: process.env.MODE !== "dev",
-    maxAge: 15 * 24 * 60 * 60 * 1000,
-    sameSite: "strict",
+    secure: process.env.NODE_ENV === "production", // Only secure if in production
+    maxAge: 15 * 24 * 60 * 60 * 1000, // 15 days
+    sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax", // Use 'lax' for local development
   });
+
+  // console.log("Cookie set with token:", token);
 };
 
 const protectedRoute = catchAsyncError(async (req, res, next) => {
   const token = req.cookies.jwt;
-  console.log(token);
+  // console.log(token);
 
   if (!token) {
     return next(new AppError("Unauthorized - No Token Provided", 404));

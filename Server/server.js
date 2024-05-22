@@ -8,14 +8,17 @@ import messageRouter from "./modules/Message/message.routes.js";
 import cookieParser from "cookie-parser";
 import userRouter from './modules/User/user.routes.js';
 import cors from 'cors';
+import { server,app } from "../Socket/socket.js";
 
 dotenv.config();
-const app = express();
 
 const PORT = process.env.PORT || 5000;
 
-// Enable CORS for all routes
-app.use(cors());
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true, // Enable credentials (cookies) in CORS
+}));
 
 app.use(express.json());
 app.use(cookieParser())
@@ -31,6 +34,6 @@ app.all('*', (req, res, next) => {
 dbConnection();
 app.use(globalErrorHandling);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on PORT ${PORT}`);
+server.listen(PORT, () => {
+  console.log(`Server is running on PORT ${PORT}`);
 });

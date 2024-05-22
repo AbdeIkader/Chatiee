@@ -6,7 +6,7 @@ import NoChatSelected from './NoChatSelected';
 
 export default function MessagesContainer() {
     
-  // const noChatSelected = true;
+
   
   const { selectedConversation, setSelectedConversation } = useConversation();
 
@@ -15,10 +15,13 @@ export default function MessagesContainer() {
 		return () => setSelectedConversation(null);
 	}, [setSelectedConversation]);
 
+ console.log(selectedConversation);
+
  
  return <>
   
     {!selectedConversation ? <NoChatSelected/> : (
+      
          <div className='flex flex-col h-full w-full'>
 
          {/* Header */}

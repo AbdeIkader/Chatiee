@@ -22,7 +22,7 @@ const userSchema = new Schema(
       required: true,
       enum: ["Male", "Female"],
     },
-    profilePicture: {
+    profilePic: {
       type: String,
       default: "",
     },
